@@ -26,6 +26,8 @@ public:
 	/**
 	 * 快慢指针，控件复杂度是 O(1)
 	 * 如何怎么快慢指针一定会相遇呢？
+	 * 文档：141环形链表.note
+		链接：http://note.youdao.com/noteshare?id=6105d13133f763361abf517492f923c2&sub=AA87C59BE59F4306AEFD374E31BBCB9D
 	*/
     bool hasCycle1(ListNode *head) {
         ListNode* slow = head;
