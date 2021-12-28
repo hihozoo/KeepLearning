@@ -27,7 +27,7 @@ public:
 	 * 快慢指针，控件复杂度是 O(1)
 	 * 如何怎么快慢指针一定会相遇呢？
 	 * 文档：141环形链表.note
-		链接：http://note.youdao.com/noteshare?id=6105d13133f763361abf517492f923c2&sub=AA87C59BE59F4306AEFD374E31BBCB9D
+	链接：http://note.youdao.com/noteshare?id=6105d13133f763361abf517492f923c2&sub=AA87C59BE59F4306AEFD374E31BBCB9D
 	*/
     bool hasCycle1(ListNode *head) {
         ListNode* slow = head;
@@ -60,6 +60,32 @@ public:
 		return false;
 	}
 
+
+	/**
+	 * 寻找环的起点，原理证明
+	 * 文档：141环形链表.note
+链接：http://note.youdao.com/noteshare?id=6105d13133f763361abf517492f923c2&sub=AA87C59BE59F4306AEFD374E31BBCB9D
+	*/
+	ListNode* findStartNode(ListNode* head){
+		ListNode* slow = head;
+		ListNode* fast = head;
+		while (fast != nullptr && fast->next != nullptr){
+			slow = slow->next;
+			fast = fast->next->next;
+			if (slow == fast){
+				break;
+			}
+		}
+		if (fast == nullptr || fast->next == nullptr){
+			return nullptr;
+		}
+		slow = head;
+		while (slow != fast){
+			slow = slow->next;
+			fast = fast->next;
+		}
+		return slow;
+	}
 };
 
 int main(){
