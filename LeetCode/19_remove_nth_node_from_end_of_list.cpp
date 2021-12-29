@@ -39,5 +39,31 @@ public:
 
 		return head;
     }
+
+	/**
+	 * 在没有添加 dummy 节点时，需要处理删除头节点的情况
+	*/
+	ListNode* removeNthFromEndWithDummy(ListNode* head, int n){
+		ListNode* dummy = new ListNode();
+
+		ListNode* first = dummy;
+		ListNode* second = dummy;
+
+		while (n >= 0){
+			first = first->next;
+			n--;
+		}
+
+		while (first){
+			first = first->next;
+			second = second->next;
+		}
+
+		second->next = second->next->next;
+
+		ListNode* ans = dummy->next;
+		delete dummy;
+		return ans;
+	}
 };
 
