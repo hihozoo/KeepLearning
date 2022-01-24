@@ -26,8 +26,17 @@ struct TreeNode{
 class Solution {
 public:
     bool isValidBST(TreeNode* root) {
-		vector<int> lastVal;
-		return isValidBST(root, lastVal);
+		return isValidBST(root, LONG_MIN, LONG_MAX);
+	}
+
+	bool helper(TreeNode* root, long long lower, long long higher){
+		if (!root){
+			return true;
+		}
+		if (root->val <= low || root->val >= high){
+			return false;
+		}
+		return isValidBST(root->left, low, root->val) && isValidBST(root->right, root->val, high);
 	}
 
 	// 利用中序遍历是一个升序数列的结果
