@@ -3,6 +3,7 @@
 */
 #include<iostream>
 #include<stack>
+#include<vector>
 #include<algorithm>
 
 using namespace std;
@@ -19,15 +20,34 @@ public:
 	// 对于中序结果来说，有效的二叉搜索树在中序遍历将得到递增值序列
 	// 节点被错误交换后，将影响中序遍历的结果
     void recoverTree(TreeNode* root) {
-		vector<TreeNode*> inorder_vec;
-		inorder(root, inorder_vec);
+		vector<TreeNode*> vec;
+		inorder(root, vec);
 
 		// 1, 7, 4, 5, 3	非相邻节点交换
 		// 1, 4, 3, 5, 7	相邻节点交换
 
+		vector<TreeNode*> error_vec;
+		for (int i = 1; i < vec.size(); i++){
+			if (vec[i]->val < vec[i - 1]->val){
+				if (error_vec.empty()){
+					error_vec.push_back(vec[i - 1]);
+				}else{
+					error_vec.push_back(vec[i]);
+				}
+				if (error_vec.size() > 1){
+					break;
+				}
+			}
+		}
+		if (error_vec.size() == 1){
+			vector<TreeNode*>::iterator it = find(vec.begin(), vec.end(), error_vec[0]);
+			it++;
+			error_vec.push_back(*it);
+		}
+		swap(error_vec[0]->val, error_vec[1]->val);
     }
 
-	void inorder(TreeNode* root, vector<TreeNode*>& inorder_vec){
+	void inorder(TreeNode* root, vector<TreeNode*>& vec){
 		stack<TreeNode*> stk;
 		while (root || !stk.empty()){
 			while (root){
@@ -36,7 +56,7 @@ public:
 			}
 			root = stk.top();
 			stk.pop();
-			inorder_vec.push_back(root);
+			vec.push_back(root);
 			root = root->right;
 		}
 	}
