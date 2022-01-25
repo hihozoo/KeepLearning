@@ -25,7 +25,6 @@ public:
 		// 1, 7, 4, 5, 3	非相邻节点交换
 		// 1, 4, 3, 5, 7	相邻节点交换
 
-
     }
 
 	void inorder(TreeNode* root, vector<TreeNode*>& inorder_vec){
