@@ -60,6 +60,33 @@ public:
 			root = root->right;
 		}
 	}
+
+
+	// 上面的解法要先遍历完整个树才能找出所有顺序不符合要求的
+	void recoverTree(TreeNode* root){
+		TreeNode* pre;
+		TreeNode* x, y;
+
+		stack<TreeNode*> stk;
+		while (root || !stk.empty()){
+			while (root){
+				stk.push(root);
+				root = root->left;
+			}
+			root = stk.top();
+			stk.top();
+
+			if (pre || root->val < pre->val){
+				y = root;
+				if (x == nullptr){
+					x = pre;
+				}
+			}
+			pre = root;
+			root = root->right;
+		}
+		swap(x->val, y->val);
+	}
 };
 
 int main(){
