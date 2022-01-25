@@ -49,6 +49,19 @@ public:
 			root_right = root_right->left;
 		}
     }
+
+	bool isSymmetric(TreeNode*p, TreeNode*q){
+		if (!p && !q){
+			return true;
+		}
+		if (p && q){
+			if (p->val != q->val){
+				return false;
+			}
+			return isSymmetric(p->left, q->right) && isSymmetric(p->right, q->left);
+		}
+		return false;
+	}
 };
 
 void trimLeftTrailingSpaces(string &input) {
