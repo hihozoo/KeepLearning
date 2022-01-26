@@ -46,4 +46,23 @@ public:
 		}
 		return vector<vector<int>>(ret.begin(), ret.end());
     }
+
+	vector<vector<int>> levelOrderBottom2(TreeNode* root) {
+		vector<vector<int> > ret;
+		walk(root, 0, ret);
+		return ret;
+    }
+
+	void walk(TreeNode* root, int depth, vector<vector<int>>& ret){
+		if (!root){
+			return;
+		}
+		if (depth == ret.size()){
+			ret.insert(ret.begin(), vector<int>());
+		}
+		ret[ret.size() - 1 - depth].push_back(root->val);
+
+		walk(root->left, depth + 1, ret);
+		walk(root->right, depth + 1, ret);
+	}
 };
