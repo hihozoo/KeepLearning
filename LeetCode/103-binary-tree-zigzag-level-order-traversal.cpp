@@ -37,10 +37,25 @@ public:
 			deque<int> levelList;
 			while (size-- > 0){
 				TreeNode* node = deq.front();
+				deq.pop_front();
+
 				if (isOrderLeft){
+					levelList.push_back(node->val);
+				}else{
+					levelList.push_front(node->val);
+				}
+
+				if (node->left){
+					deq.push_back(node->left);
+				}
+				if (node->right){
+					deq.push_back(node->right);
 				}
 			}
+			ret.push_back(vector<int>(levelList.begin(), levelList.end()));
+			isOrderLeft = !isOrderLeft;
 		}
-		return vec;
+		return ret;
 	}
 };
+
