@@ -71,4 +71,33 @@ public:
 		}
 		return root;
 	}
+
+	// 降低空间复杂度
+	// 如果第 ii 层节点之间已经建立 \text{next}next 指针，就可以通过 \text{next}next 指针访问该层的所有节点，同时对于每个第 ii 层的节点，我们又可以通过它的 \rm leftleft 和 \rm rightright 指针知道其第 i+1i+1 层的孩子节点是什么，所以遍历过程中就能够按顺序为第 i + 1i+1 层节点建立 \text{next}next 指针。
+	Node* connect2(Node* root){
+		Node* head = root;
+		Node* dummy = new Node();
+
+		while (head){
+			Node* tmp = head;
+			Node* cur = dummy;
+
+			while (tmp){
+				if (tmp->left){
+					cur->next = tmp->left;
+					cur = cur->next;
+				}
+				if (tmp->right){
+					cur->next = tmp->right;
+					cur = cur->next;
+				}
+				tmp = tmp->next;
+			}
+
+			head = dummy->next;
+			dummy->next = nullptr;
+		}
+		delete dummy;
+		return root;
+	}
 };
