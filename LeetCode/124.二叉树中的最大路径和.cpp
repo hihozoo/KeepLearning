@@ -11,7 +11,7 @@
 */
 
 #include <algorithm>
-#include <climit>
+#include <climits>
 
 using namespace std;
 
