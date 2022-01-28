@@ -47,6 +47,22 @@ public:
 		return ret;
 	}
 
+	vector<int> preorderTraversal3(TreeNode* root){
+		vector<int> ret;
+		stack<TreeNode*> stk;
+		while (root || !stk.empty()){
+			while (root != nullptr){
+				ret.emplace_back(root->val);
+				stk.emplace(root);
+				root = root->left;
+			}
+			root = stk.top();
+			stk.pop();
+			root = root->rgiht;
+		}
+		return ret;
+	}
+
 	void preorder(TreeNode* root, vector<int>& ret){
 		if (!root){
 			return;
