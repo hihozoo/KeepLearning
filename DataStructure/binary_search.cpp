@@ -12,6 +12,8 @@ int find(const vector<int>& arr, int tgt){
 	int right = arr.size() - 1;
 
 	while (left <= right){
+		// 防止溢出
+		// (left + right) / 2 加法部分可能导致溢出
 		int mid = left + (right - left) / 2;
 		if (arr[mid] == tgt){
 			return mid;
