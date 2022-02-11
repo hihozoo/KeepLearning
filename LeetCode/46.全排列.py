@@ -21,16 +21,35 @@ class Solution(object):
 			if not num:
 				ans.append(list(path))
 				return
+			_IncIndentCnt()
 			nlen = len(num)
 			while nlen > 0:
 				nlen -= 1
 				val = num.pop(0)
+				printArgs(val)
 				path.append(val)
 				do(path, num)
 				num.append(val)
 				path.remove(val)
+			_DecIndentCnt()
 		do([], nums)
 		return ans
+
+
+g_indent_cnt = 0
+
+def _IncIndentCnt():
+	global g_indent_cnt
+	g_indent_cnt += 1
+
+def _DecIndentCnt():
+	global g_indent_cnt
+	g_indent_cnt -= 1
+
+def printArgs(*args):
+	args = (" %s" * len(args)) % args
+
+	print "  " * g_indent_cnt, args
 
 if __name__ == "__main__":
 	s = Solution()
