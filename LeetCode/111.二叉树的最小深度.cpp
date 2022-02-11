@@ -71,4 +71,29 @@ public:
 		}
 		return depth;
 	}
+
+	// 回溯思路
+	// 在当前所有选择中，选择一个进行向前探测，探测完后，选择下一个进行探测
+	int minDepth(TreeNode* root){
+		if (!root){
+			return 0;
+		}
+		int min = INT_MAX;
+		int cur = 0;
+		minDepthImpl(root, cur, min);
+		return min;
+	}
+	void minDepthImpl(TreeNode* root, int& cur, int& min){
+		cur++;
+		if (root->left){
+			minDepthImpl(root->left, cur, min);
+		}
+		if (root->right){
+			minDepthImpl(root->right, cur, min);
+		}
+		if (root->left == nullptr && root->right == nullptr){
+			min = min < cur ? min: cur;
+		}
+		cur--;
+	}
 };
